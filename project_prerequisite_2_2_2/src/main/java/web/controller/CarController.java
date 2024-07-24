@@ -16,7 +16,9 @@ public class CarController {
 
     @GetMapping("/cars")
     public String showCars(@RequestParam("count") Optional<Integer> count, Model model) {
-        model.addAttribute("cars", carService.getCars(count.orElse(3)));
+        int carCount =count.orElse(5);
+        carCount = (carCount < 0) ? 5 : carCount;
+        model.addAttribute("cars", carService.getCars(carCount));
         return "cars";
     }
 }
